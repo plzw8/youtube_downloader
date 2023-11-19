@@ -14,7 +14,7 @@ def download_video(url, download_path):
         print(f"An error occurred while downloading {url}: {e}")
 
 
-def download_youtube_videos_concurrently(url_list, download_path, max_processes=8):
+def download_youtube_videos_concurrently(url_list, download_path, max_processes=2):
     with ProcessPoolExecutor(max_workers=max_processes) as executor:
         futures = [executor.submit(download_video, url, download_path) for url in url_list]
         for future in futures:
@@ -27,5 +27,5 @@ def read_url_list(file_path):
 
 
 if __name__ == '__main__':
-    url_list = read_url_list('list2.txt')
+    url_list = read_url_list('urls.txt')
     download_youtube_videos_concurrently(url_list, "./download")
